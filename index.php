@@ -21,14 +21,18 @@
   </head>
   <body>
     <h1>Crime 2</h1>
+    <div id="location" class="">
+
+    </div>
     <form class="" action="add.php" method="post">
       <label for="">Name</label>
       <input type="text" name="name" value="">
       <label for="">Lat</label>
-      <input type="text" name="lat" value="">
+      <input id="lat" type="text" name="lat" value="">
       <label for="">Long</label>
-      <input type="text" name="long" value="">
+      <input id="long" type="text" name="long" value="">
       <button type="submit" name="submit">Add</button>
+      <button type="button" onclick="getLocation()" name="gps">GPS</button>
     </form>
     <table width="100%">
       <tr>
@@ -47,4 +51,23 @@
       <?php endforeach; ?>
     </table>
   </body>
+  <script type="text/javascript">
+    var x = document.getElementById("location");
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    function showPosition(position) {
+      var lat = document.getElementById("lat");
+      var long = document.getElementById("long");
+
+      lat.value = position.coords.latitude;
+      long.value = position.coords.longitude;
+    }
+  </script>
 </html>

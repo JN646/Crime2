@@ -1,19 +1,30 @@
 <?php require_once("partials/_header.php"); ?>
     <div class="container">
       <?php
-      $accounts = $db->query('SELECT * FROM poi');
+      $pois = $db->query('SELECT * FROM poi');
       ?>
-      <h3>Points of Interest <span class="badge bg-secondary"><?= $accounts->numRows(); ?></span></h3>
-      <?php $accounts = $db->query('SELECT * FROM poi')->fetchAll(); ?>
+      <h3>Points of Interest <span class="badge bg-secondary"><?= $pois->numRows(); ?></span></h3>
+      <?php $pois = $db->query('SELECT * FROM poi')->fetchAll(); ?>
       <div class="row">
         <div class="col">
           <div class="card">
             <h5 class="card-header">Create</h5>
             <div class="card-body">
               <form class="" action="add.php" method="post">
-                <div class="col">
-                  <label for="">Name</label>
-                  <input class="form-control" id="name" type="text" name="name" value="">
+                <div class="row">
+                  <div class="col">
+                    <label for="">Name</label>
+                    <input class="form-control" id="name" type="text" name="name" value="">
+                  </div>
+                  <div class="col">
+                    <label for="">Incident</label>
+                    <select id="incident" class="form-control" name="incident">
+                      <option value="0">Please Select</option>
+                      <option value="Oranges">Oranges</option>
+                      <option value="Apples">Apples</option>
+                      <option value="Grapes">Grapes</option>
+                    </select>
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col">
@@ -42,17 +53,19 @@
               <th class="text-center">Name</th>
               <th class="text-center">Long</th>
               <th class="text-center">Lat</th>
+              <th class="text-center">Incident</th>
               <th class="text-center">Created At</th>
               <th class="text-center">Delete</th>
             </tr>
-            <?php foreach ($accounts as $account): ?>
+            <?php foreach ($pois as $poi): ?>
               <tr>
-                <td class="text-center"><?= $account['id'] ?></td>
-                <td><?= $account['name'] ?></td>
-                <td><?= $account['longitude'] ?></td>
-                <td><?= $account['latitude'] ?></td>
-                <td><?= $account['created_at'] ?></td>
-                <td class="text-center"><a href="delete.php?id=<?= $account['id'] ?>"><i class="bi bi-trash"></i></a></td>
+                <td class="text-center"><?= $poi['id'] ?></td>
+                <td><?= $poi['name'] ?></td>
+                <td><?= $poi['longitude'] ?></td>
+                <td><?= $poi['latitude'] ?></td>
+                <td><?= $poi['incident'] ?></td>
+                <td><?= $poi['created_at'] ?></td>
+                <td class="text-center"><a href="delete.php?id=<?= $poi['id'] ?>"><i class="bi bi-trash"></i></a></td>
               </tr>
             <?php endforeach; ?>
           </table>
@@ -67,9 +80,6 @@
         ?>
         const latitude = javascript_array.map(({ latitude }) => latitude);
         const longitude = javascript_array.map(({ longitude }) => longitude);
-
-        console.log(latitude[1]);
-        console.log(longitude);
 
         var map = new ol.Map({
                 target: 'map',
@@ -97,35 +107,8 @@
               stopEvent: false
           });
           map.addOverlay(marker);
-          console.log(longitude[i], latitude[i]);
         };
       </script>
 
     </div>
-  <script type="text/javascript">
-    // Ask GPS
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-      }
-    }
-
-    // Get coords
-    function showPosition(position) {
-      var name = document.getElementById("name");
-      var lat = document.getElementById("lat");
-      var long = document.getElementById("long");
-
-      // Update values with lat long.
-      lat.value = position.coords.latitude;
-      long.value = position.coords.longitude;
-
-      // Enter a default name if none is entered.
-      if (name.value == "") {
-        name.value = "Current Location";
-      }
-    }
-  </script>
 <?php require_once("partials/_footer.php"); ?>

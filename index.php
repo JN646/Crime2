@@ -26,7 +26,7 @@
     </div>
     <form class="" action="add.php" method="post">
       <label for="">Name</label>
-      <input type="text" name="name" value="">
+      <input id="name" type="text" name="name" value="">
       <label for="">Lat</label>
       <input id="lat" type="text" name="lat" value="">
       <label for="">Long</label>
@@ -40,6 +40,7 @@
         <th>Name</th>
         <th>Lat</th>
         <th>Long</th>
+        <th>Delete</th>
       </tr>
       <?php foreach ($accounts as $account): ?>
         <tr>
@@ -47,13 +48,13 @@
           <td><?= $account['name'] ?></td>
           <td><?= $account['latitude'] ?></td>
           <td><?= $account['longitude'] ?></td>
+          <td><a href="delete.php?id=<?= $account['id'] ?>">Delete</a></td>
         </tr>
       <?php endforeach; ?>
     </table>
   </body>
   <script type="text/javascript">
-    var x = document.getElementById("location");
-
+    // Ask GPS
     function getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -62,12 +63,20 @@
       }
     }
 
+    // Get coords
     function showPosition(position) {
+      var name = document.getElementById("name");
       var lat = document.getElementById("lat");
       var long = document.getElementById("long");
 
+      // Update values with lat long.
       lat.value = position.coords.latitude;
       long.value = position.coords.longitude;
+
+      // Enter a default name if none is entered.
+      if (name.value == "") {
+        name.value = "Current Location";
+      }
     }
   </script>
 </html>

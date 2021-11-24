@@ -17,12 +17,12 @@
                 </div>
                 <div class="row">
                   <div class="col">
-                    <label for="">Lat</label>
-                    <input class="form-control" id="lat" type="text" name="lat" value="">
-                  </div>
-                  <div class="col">
                     <label for="">Long</label>
                     <input class="form-control" id="long" type="text" name="long" value="">
+                  </div>
+                  <div class="col">
+                    <label for="">Lat</label>
+                    <input class="form-control" id="lat" type="text" name="lat" value="">
                   </div>
                 </div>
                 <div class="mt-2">
@@ -40,8 +40,8 @@
             <tr>
               <th class="text-center">ID</th>
               <th class="text-center">Name</th>
-              <th class="text-center">Lat</th>
               <th class="text-center">Long</th>
+              <th class="text-center">Lat</th>
               <th class="text-center">Created At</th>
               <th class="text-center">Delete</th>
             </tr>
@@ -49,8 +49,8 @@
               <tr>
                 <td class="text-center"><?= $account['id'] ?></td>
                 <td><?= $account['name'] ?></td>
-                <td><?= $account['latitude'] ?></td>
                 <td><?= $account['longitude'] ?></td>
+                <td><?= $account['latitude'] ?></td>
                 <td><?= $account['created_at'] ?></td>
                 <td class="text-center"><a href="delete.php?id=<?= $account['id'] ?>"><i class="bi bi-trash"></i></a></td>
               </tr>
@@ -99,17 +99,6 @@
           map.addOverlay(marker);
           console.log(longitude[i], latitude[i]);
         };
-
-        // var layer = new ol.layer.Vector({
-        //     source: new ol.source.Vector({
-        //         features: [
-        //             new ol.Feature({
-        //                 geometry: new ol.geom.Point(ol.proj.fromLonLat([46.5131, 24.9979]))
-        //             })
-        //         ]
-        //     })
-        // });
-        // map.addLayer(layer);
       </script>
 
     </div>

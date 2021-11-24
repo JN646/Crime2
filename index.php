@@ -21,19 +21,22 @@
       <h1>Crime 2</h1>
       <h3>Points of Interest</h3>
       <div class="row">
-        <div class="border">
-          <form class="" action="add.php" method="post">
-            <label for="">Name</label>
-            <input class="form-control" id="name" type="text" name="name" value="">
-            <label for="">Lat</label>
-            <input class="form-control" id="lat" type="text" name="lat" value="">
-            <label for="">Long</label>
-            <input class="form-control" id="long" type="text" name="long" value="">
-            <div class="mt-2">
-              <button class="btn btn-primary" type="submit" name="submit"><i class="bi bi-plus"></i> Add</button>
-              <button class="btn btn-primary" type="button" onclick="getLocation()" name="gps"><i class="bi bi-geo"></i> GPS</button>
-            </div>
-          </form>
+        <div class="card">
+          <h5 class="card-header">Create</h5>
+          <div class="card-body">
+            <form class="" action="add.php" method="post">
+              <label for="">Name</label>
+              <input class="form-control" id="name" type="text" name="name" value="">
+              <label for="">Lat</label>
+              <input class="form-control" id="lat" type="text" name="lat" value="">
+              <label for="">Long</label>
+              <input class="form-control" id="long" type="text" name="long" value="">
+              <div class="mt-2">
+                <button class="btn btn-primary" type="submit" name="submit"><i class="bi bi-plus"></i> Add</button>
+                <button class="btn btn-primary" type="button" onclick="getLocation()" name="gps"><i class="bi bi-geo"></i> GPS</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
       <div class="row mt-4">
@@ -43,6 +46,7 @@
             <th class="text-center">Name</th>
             <th class="text-center">Lat</th>
             <th class="text-center">Long</th>
+            <th class="text-center">Created At</th>
             <th class="text-center">Delete</th>
           </tr>
           <?php foreach ($accounts as $account): ?>
@@ -51,6 +55,7 @@
               <td><?= $account['name'] ?></td>
               <td><?= $account['latitude'] ?></td>
               <td><?= $account['longitude'] ?></td>
+              <td><?= $account['created_at'] ?></td>
               <td class="text-center"><a href="delete.php?id=<?= $account['id'] ?>"><i class="bi bi-trash"></i></a></td>
             </tr>
           <?php endforeach; ?>

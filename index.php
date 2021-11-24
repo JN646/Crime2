@@ -18,22 +18,25 @@
 
     $accounts = $db->query('SELECT * FROM poi')->fetchAll();
     ?>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </head>
   <body>
     <h1>Crime 2</h1>
-    <div id="location" class="">
-
+    <h3>Points of Interest</h3>
+    <div class="border">
+      <form class="" action="add.php" method="post">
+        <label for="">Name</label>
+        <input id="name" type="text" name="name" value="">
+        <label for="">Lat</label>
+        <input id="lat" type="text" name="lat" value="">
+        <label for="">Long</label>
+        <input id="long" type="text" name="long" value="">
+        <button type="submit" name="submit">Add</button>
+        <button type="button" onclick="getLocation()" name="gps">GPS</button>
+      </form>
     </div>
-    <form class="" action="add.php" method="post">
-      <label for="">Name</label>
-      <input id="name" type="text" name="name" value="">
-      <label for="">Lat</label>
-      <input id="lat" type="text" name="lat" value="">
-      <label for="">Long</label>
-      <input id="long" type="text" name="long" value="">
-      <button type="submit" name="submit">Add</button>
-      <button type="button" onclick="getLocation()" name="gps">GPS</button>
-    </form>
     <table width="100%">
       <tr>
         <th>ID</th>
@@ -48,7 +51,7 @@
           <td><?= $account['name'] ?></td>
           <td><?= $account['latitude'] ?></td>
           <td><?= $account['longitude'] ?></td>
-          <td><a href="delete.php?id=<?= $account['id'] ?>">Delete</a></td>
+          <td class="text-center"><a href="delete.php?id=<?= $account['id'] ?>">Delete</a></td>
         </tr>
       <?php endforeach; ?>
     </table>

@@ -1,21 +1,16 @@
 <?php
 require_once("classes/db.php");
-
-$dbhost = 'localhost';
-$dbuser = 'root';
-$dbpass = 'root';
-$dbname = 'crime2';
+require_once("classes/poi.class.php");
+require_once("global.php");
 
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 $id = $_GET["id"];
 
-$insert = $db->query('DELETE FROM poi WHERE id = ?', $id);
-$db->close();
+$poi = new PointOfInterest($id, $name = NULL, $lat = NULL, $long = NULL);
 
+$poi->deletePOI($id);
+
+// Redirect
 header('Location: index.php');
 ?>

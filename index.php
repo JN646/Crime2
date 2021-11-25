@@ -47,7 +47,7 @@
       </div>
       <div class="row mt-4">
         <div class="col">
-          <table class="table table-bordered">
+          <table id="poi" class="table table-bordered table-sm">
             <tr>
               <th class="text-center">ID</th>
               <th class="text-center">Name</th>

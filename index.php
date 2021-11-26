@@ -37,7 +37,7 @@
                 </div>
                 <div class="row">
                   <div class="col">
-                    <label for="">Long</label>
+                    <label for="">Lon</label>
                     <input class="form-control" id="long" type="text" name="long" value="">
                   </div>
                   <div class="col">
@@ -60,7 +60,7 @@
             <tr>
               <th class="text-center">ID</th>
               <th class="text-center">Name</th>
-              <th class="text-center">Long</th>
+              <th class="text-center">Lon</th>
               <th class="text-center">Lat</th>
               <th class="text-center">Incident</th>
               <th class="text-center">Status</th>
@@ -82,7 +82,30 @@
           </table>
         </div>
       </div>
+      <!-- Map Section -->
       <div id="map" class="map"></div>
+
+      <div class="row mt-4">
+        <div class="col">
+          <?php
+          $list_of_incidents = $db->query('SELECT DISTINCT `incident` FROM `poi`')->fetchAll();
+          ?>
+
+          <?php foreach ($list_of_incidents as $incident): ?>
+            <?php
+            $countIncident = $db->query('SELECT incident FROM `poi` WHERE incident = ?', $incident);
+            ?>
+            <div class="card">
+              <h5 class="card-header"><?= $incident["incident"]; ?></h5>
+              <div class="card-body">
+                <h1 class="display-2 text-center"><?= $countIncident->numRows() ?></h1>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+
+      <!-- JS -->
       <script type="text/javascript">
         <?php
           $php_array = $db->query('SELECT `longitude`, `latitude`, `status` FROM `poi`')->fetchAll();
@@ -113,13 +136,13 @@
           var element = document.createElement('div');
           switch (status[i]) {
             case "ACTIVE":
-              element.innerHTML = '<img src="https://cdn.mapmarker.io/api/v1/fa/stack?size=50&color=FF0000&icon=fa-microchip&hoffset=1" />';
+              element.innerHTML = '<img src="https://cdn.mapmarker.io/api/v1/fa/stack?size=50&color=990000&icon=fa-microchip&hoffset=1" />';
               break;
             case "RESOLVED":
-              element.innerHTML = '<img src="https://cdn.mapmarker.io/api/v1/fa/stack?size=50&color=00FF00&icon=fa-microchip&hoffset=1" />';
+              element.innerHTML = '<img src="https://cdn.mapmarker.io/api/v1/fa/stack?size=50&color=009900&icon=fa-microchip&hoffset=1" />';
               break;
             case "EXPIRED":
-              element.innerHTML = '<img src="https://cdn.mapmarker.io/api/v1/fa/stack?size=50&color=CCCCCC&icon=fa-microchip&hoffset=1" />';
+              element.innerHTML = '<img src="https://cdn.mapmarker.io/api/v1/fa/stack?size=50&color=333333&icon=fa-microchip&hoffset=1" />';
               break;
           }
           var marker = new ol.Overlay({

@@ -1,7 +1,7 @@
 <?php require_once("partials/_header.php"); ?>
     <div class="container">
       <?php
-      $pois = $db->query('SELECT * FROM `poi`');
+      $pois = $db->query('SELECT id FROM `poi`');
       ?>
       <h3>Points of Interest <span class="badge bg-secondary"><?= $pois->numRows(); ?></span></h3>
       <?php $pois = $db->query('SELECT * FROM `poi`')->fetchAll(); ?>
@@ -128,6 +128,7 @@
               element: element,
               stopEvent: false
           });
+
           map.addOverlay(marker);
         };
       </script>

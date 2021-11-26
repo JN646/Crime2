@@ -11,12 +11,16 @@ class PointOfInterest extends db {
   private $status;
 
   function __construct($id, $name, $lat, $long, $incident, $status) {
-    $this->id = $id;
-    $this->name = $name;
-    $this->lat = $lat;
-    $this->long = $long;
-    $this->incident = $incident;
-    $this->status = $status;
+    $this->setID($id);
+    $this->setName($name);
+    $this->setLat($lat);
+    $this->setLong($long);
+    $this->setIncident($incident);
+    $this->setStatus($status);
+  }
+
+  function getID() {
+    return $this->name;
   }
 
   function getName() {
@@ -39,6 +43,10 @@ class PointOfInterest extends db {
     return $this->status;
   }
 
+  function setID($id) {
+    $this->id = $id;
+  }
+
   function setName($name) {
     $this->name = $name;
   }
@@ -48,28 +56,40 @@ class PointOfInterest extends db {
   }
 
   function setLat($lat) {
-    $this->lat = $lat;
+    if (!is_numeric($lat)) {
+      die("Error: Must be a number.");
+    } else {
+      $this->lat = $lat;
+    }
   }
 
   function setLong($long) {
-    $this->long = $long;
+    if (!is_numeric($long)) {
+      die("Error: Must be a number.");
+    } else {
+      $this->long = $long;
+    }
   }
 
   function setStatus($status) {
-    $this->status = $status;
+    if ($status == "0") {
+      die("Error: Can't be 0.");
+    } else {
+      $this->status = $status;
+    }
   }
 
   function createPOI() {
     $db = new db();
 
-    $insert = $db->query('INSERT INTO poi (name,latitude,longitude,incident,status) VALUES (?,?,?,?,?)', $this->name, $this->lat, $this->long, $this->incident, $this->status);
+    $insert = $db->query('INSERT INTO `poi` (`name`,`latitude`,`longitude`,`incident`,`status`) VALUES (?,?,?,?,?)', $this->name, $this->lat, $this->long, $this->incident, $this->status);
     $db->close();
   }
 
   function deletePOI($id) {
     $db = new db();
 
-    $insert = $db->query('DELETE FROM poi WHERE id = ?', $id);
+    $insert = $db->query('DELETE FROM `poi` WHERE `id` = ?', $id);
     $db->close();
   }
 }

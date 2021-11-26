@@ -8,13 +8,15 @@ class PointOfInterest extends db {
   private $lat;
   private $long;
   private $incident;
+  private $status;
 
-  function __construct($id, $name, $lat, $long, $incident) {
+  function __construct($id, $name, $lat, $long, $incident, $status) {
     $this->id = $id;
     $this->name = $name;
     $this->lat = $lat;
     $this->long = $long;
     $this->incident = $incident;
+    $this->status = $status;
   }
 
   function getName() {
@@ -33,6 +35,10 @@ class PointOfInterest extends db {
     return $this->incident;
   }
 
+  function getStatus() {
+    return $this->status;
+  }
+
   function setName($name) {
     $this->name = $name;
   }
@@ -49,10 +55,14 @@ class PointOfInterest extends db {
     $this->long = $long;
   }
 
+  function setStatus($status) {
+    $this->status = $status;
+  }
+
   function createPOI() {
     $db = new db();
 
-    $insert = $db->query('INSERT INTO poi (name,latitude,longitude,incident) VALUES (?,?,?,?)', $this->name, $this->lat, $this->long, $this->incident);
+    $insert = $db->query('INSERT INTO poi (name,latitude,longitude,incident,status) VALUES (?,?,?,?,?)', $this->name, $this->lat, $this->long, $this->incident, $this->status);
     $db->close();
   }
 

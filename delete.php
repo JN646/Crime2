@@ -7,7 +7,7 @@ $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
 $id = $_GET["id"];
 
-$poi = new PointOfInterest($id, $name = NULL, $lat = NULL, $long = NULL);
+$poi = new PointOfInterest($id, $name = NULL, $lat = NULL, $long = NULL, $status = NULL);
 
 $poi->deletePOI($id);
 

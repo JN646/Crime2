@@ -25,6 +25,15 @@
                       <option value="Grapes">Grapes</option>
                     </select>
                   </div>
+                  <div class="col">
+                    <label for="">Status</label>
+                    <select id="status" class="form-control" name="status">
+                      <option value="0">Please Select</option>
+                      <option value="ACTIVE">ACTIVE</option>
+                      <option value="RESOLVED">RESOLVED</option>
+                      <option value="EXPIRED">EXPIRED</option>
+                    </select>
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col">
@@ -54,6 +63,7 @@
               <th class="text-center">Long</th>
               <th class="text-center">Lat</th>
               <th class="text-center">Incident</th>
+              <th class="text-center">Status</th>
               <th class="text-center">Created At</th>
               <th class="text-center">Delete</th>
             </tr>
@@ -64,6 +74,7 @@
                 <td><?= $poi['longitude'] ?></td>
                 <td><?= $poi['latitude'] ?></td>
                 <td><?= $poi['incident'] ?></td>
+                <td><?= $poi['status'] ?></td>
                 <td><?= $poi['created_at'] ?></td>
                 <td class="text-center"><a href="delete.php?id=<?= $poi['id'] ?>"><i class="bi bi-trash"></i></a></td>
               </tr>

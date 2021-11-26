@@ -85,23 +85,51 @@
       <!-- Map Section -->
       <div id="map" class="map"></div>
 
-      <div class="row mt-4">
-        <div class="col">
+      <div class="row my-2">
+        <h3>Incidents by Type</h3>
+      </div>
+      <div class="row row-cols-3">
           <?php
           $list_of_incidents = $db->query('SELECT DISTINCT `incident` FROM `poi`')->fetchAll();
           ?>
 
           <?php foreach ($list_of_incidents as $incident): ?>
             <?php
-            $countIncident = $db->query('SELECT incident FROM `poi` WHERE incident = ?', $incident);
+            $countIncident = $db->query('SELECT `incident` FROM `poi` WHERE incident = ?', $incident);
             ?>
-            <div class="card">
-              <h5 class="card-header"><?= $incident["incident"]; ?></h5>
-              <div class="card-body">
-                <h1 class="display-2 text-center"><?= $countIncident->numRows() ?></h1>
+            <div class="col">
+              <div class="card">
+                <h5 class="card-header text-center"><?= $incident["incident"]; ?></h5>
+                <div class="card-body">
+                  <h1 class="display-2 text-center text-bold"><?= $countIncident->numRows() ?></h1>
+                </div>
               </div>
             </div>
           <?php endforeach; ?>
+        </div>
+
+        <div class="row my-2">
+          <h3>Incidents by Status</h3>
+        </div>
+        <div class="row row-cols-3">
+            <?php
+            $list_of_statuses = $db->query('SELECT DISTINCT `status` FROM `poi`')->fetchAll();
+            ?>
+
+            <?php foreach ($list_of_statuses as $status): ?>
+              <?php
+              $countStatus = $db->query('SELECT `status` FROM `poi` WHERE `status` = ?', $status);
+              ?>
+              <div class="col">
+                <div class="card">
+                  <h5 class="card-header text-center"><?= $status["status"]; ?></h5>
+                  <div class="card-body">
+                    <h1 class="display-2 text-center text-<?= $status["status"]; ?>"><?= $countStatus->numRows() ?></h1>
+                  </div>
+                </div>
+              </div>
+            <?php endforeach; ?>
+          </div>
         </div>
       </div>
 

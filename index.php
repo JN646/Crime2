@@ -85,12 +85,13 @@
       <div id="map" class="map"></div>
       <script type="text/javascript">
         <?php
-          $php_array = $db->query('SELECT `longitude`, `latitude` FROM `poi`')->fetchAll();
+          $php_array = $db->query('SELECT `longitude`, `latitude`, `status` FROM `poi`')->fetchAll();
           $js_array = json_encode($php_array);
           echo "var javascript_array = ". $js_array . ";\n";
         ?>
         const latitude = javascript_array.map(({ latitude }) => latitude);
         const longitude = javascript_array.map(({ longitude }) => longitude);
+        const status = javascript_array.map(({ status }) => status);
 
         var map = new ol.Map({
             target: 'map',
@@ -110,7 +111,17 @@
 
         for (var i = 0; i < javascript_array.length; i++) {
           var element = document.createElement('div');
-          element.innerHTML = '<img src="https://cdn.mapmarker.io/api/v1/fa/stack?size=50&color=DC4C3F&icon=fa-microchip&hoffset=1" />';
+          switch (status[i]) {
+            case "ACTIVE":
+              element.innerHTML = '<img src="https://cdn.mapmarker.io/api/v1/fa/stack?size=50&color=FF0000&icon=fa-microchip&hoffset=1" />';
+              break;
+            case "RESOLVED":
+              element.innerHTML = '<img src="https://cdn.mapmarker.io/api/v1/fa/stack?size=50&color=00FF00&icon=fa-microchip&hoffset=1" />';
+              break;
+            case "EXPIRED":
+              element.innerHTML = '<img src="https://cdn.mapmarker.io/api/v1/fa/stack?size=50&color=CCCCCC&icon=fa-microchip&hoffset=1" />';
+              break;
+          }
           var marker = new ol.Overlay({
               position: [longitude[i], latitude[i]],
               positioning: 'center-center',

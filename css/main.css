@@ -1,0 +1,15 @@
+/* Master CSS */
+.text-ACTIVE {
+  color: red;
+  font-weight: bold;
+}
+
+.text-RESOLVED {
+  color: green;
+  font-weight: bold;
+}
+
+.text-EXPIRED {
+  color: gray;
+  font-weight: bold;
+}

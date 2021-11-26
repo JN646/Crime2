@@ -1,10 +1,10 @@
 <?php require_once("partials/_header.php"); ?>
     <div class="container">
       <?php
-      $pois = $db->query('SELECT * FROM poi');
+      $pois = $db->query('SELECT * FROM `poi`');
       ?>
       <h3>Points of Interest <span class="badge bg-secondary"><?= $pois->numRows(); ?></span></h3>
-      <?php $pois = $db->query('SELECT * FROM poi')->fetchAll(); ?>
+      <?php $pois = $db->query('SELECT * FROM `poi`')->fetchAll(); ?>
       <div class="row">
         <div class="col">
           <div class="card">
@@ -74,7 +74,7 @@
                 <td><?= $poi['longitude'] ?></td>
                 <td><?= $poi['latitude'] ?></td>
                 <td><?= $poi['incident'] ?></td>
-                <td><?= $poi['status'] ?></td>
+                <td class="text-center text-<?= $poi['status'] ?>"><?= $poi['status'] ?></td>
                 <td><?= $poi['created_at'] ?></td>
                 <td class="text-center"><a href="delete.php?id=<?= $poi['id'] ?>"><i class="bi bi-trash"></i></a></td>
               </tr>
@@ -85,7 +85,7 @@
       <div id="map" class="map"></div>
       <script type="text/javascript">
         <?php
-          $php_array = $db->query('SELECT longitude, latitude FROM poi')->fetchAll();
+          $php_array = $db->query('SELECT `longitude`, `latitude` FROM `poi`')->fetchAll();
           $js_array = json_encode($php_array);
           echo "var javascript_array = ". $js_array . ";\n";
         ?>
@@ -93,20 +93,20 @@
         const longitude = javascript_array.map(({ longitude }) => longitude);
 
         var map = new ol.Map({
-                target: 'map',
-                layers: [
-                    new ol.layer.Tile({
-                        source: new ol.source.OSM()
-                    })
-                ],
-                view: new ol.View({
-                    projection:"EPSG:4326",
-                    center: [longitude[0], latitude[0]],
-                    zoom: 10,
-                    minzoom: 6,
-                    maxzoom: 18
+            target: 'map',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
                 })
-            });
+            ],
+            view: new ol.View({
+                projection:"EPSG:4326",
+                center: [longitude[0], latitude[0]],
+                zoom: 10,
+                minzoom: 6,
+                maxzoom: 18
+            })
+        });
 
         for (var i = 0; i < javascript_array.length; i++) {
           var element = document.createElement('div');

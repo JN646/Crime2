@@ -60,8 +60,7 @@
             <tr>
               <th class="text-center">ID</th>
               <th class="text-center">Name</th>
-              <th class="text-center">Lon</th>
-              <th class="text-center">Lat</th>
+              <th class="text-center">Lon/Lat</th>
               <th class="text-center">Incident</th>
               <th class="text-center">Status</th>
               <th class="text-center">Created At</th>
@@ -71,8 +70,7 @@
               <tr>
                 <td class="text-center"><?= $poi['id'] ?></td>
                 <td><?= $poi['name'] ?></td>
-                <td><?= $poi['longitude'] ?></td>
-                <td><?= $poi['latitude'] ?></td>
+                <td><?= number_format($poi['longitude'], 4, '.', '') ?>, <?= number_format($poi['latitude'], 4, '.', '') ?></td>
                 <td><?= $poi['incident'] ?></td>
                 <td class="text-center text-<?= $poi['status'] ?>"><?= $poi['status'] ?></td>
                 <td><?= $poi['created_at'] ?></td>
